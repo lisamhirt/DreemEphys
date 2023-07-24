@@ -1,12 +1,12 @@
 
 function [] = DreemData_prepost_v1(PartID, PrePost)
 
-% PartID = 'DBSSleep03';
+% PartID = 'DBSSleep06';
 % PrePost = 'Pre_On';
 
 allData = struct;
 
-readdataLOC = 'Z:\Hirt_Neurosurgery_Projects\DBS_Dreem_AJB\DREEMData\DBSSleep03\Pre-DBS ON med\Dreem data';
+readdataLOC = 'Z:\Hirt_Neurosurgery_Projects\DBS_Dreem_AJB\CaseData\DREEMData_raw\DBSSleep03\PostDBS\Post-DBS OFF med\Dreem data';
 cd(readdataLOC)
 
 sleepStageList = [{'SLEEP-S1' 'SLEEP-S2' 'SLEEP-S3'}];
@@ -54,7 +54,7 @@ for i = 1:length(hypnoList2)
                     tempSleepLoc = matches(tempList.SleepStage, sleepStageList{1});
                     tempSleepLoc2 = find(tempSleepLoc); % rows of where Sleep-S1 is in the hypno list
 
-                    [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF)
+                    [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF);
                     allData.(PartID).(PrePost).(tempNightNum2).(s1Name).F7_01 = F7_01;
                     allData.(PartID).(PrePost).(tempNightNum2).(s1Name).F8_02 = F8_02;
                     allData.(PartID).(PrePost).(tempNightNum2).(s1Name).F8_F7 = F8_F7;
@@ -66,7 +66,7 @@ for i = 1:length(hypnoList2)
                     tempSleepLoc = matches(tempList.SleepStage, sleepStageList{2});
                     tempSleepLoc2 = find(tempSleepLoc);
 
-                    [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF)
+                    [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF);
                     allData.(PartID).(PrePost).(tempNightNum2).(s2Name).F7_01 = F7_01;
                     allData.(PartID).(PrePost).(tempNightNum2).(s2Name).F8_02 = F8_02;
                     allData.(PartID).(PrePost).(tempNightNum2).(s2Name).F8_F7 = F8_F7;
@@ -78,7 +78,7 @@ for i = 1:length(hypnoList2)
                     tempSleepLoc = matches(tempList.SleepStage, sleepStageList{2});
                     tempSleepLoc2 = find(tempSleepLoc);
 
-                    [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF)
+                    [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF);
                     allData.(PartID).(PrePost).(tempNightNum2).(s3Name).F7_01 = F7_01;
                     allData.(PartID).(PrePost).(tempNightNum2).(s3Name).F8_02 = F8_02;
                     allData.(PartID).(PrePost).(tempNightNum2).(s3Name).F8_F7 = F8_F7;
