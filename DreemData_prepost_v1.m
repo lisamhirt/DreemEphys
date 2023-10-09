@@ -6,10 +6,10 @@ function [] = DreemData_prepost_v1(PartID, PrePost)
 
 allData = struct;
 
-readdataLOC = 'Z:\Hirt_Neurosurgery_Projects\DBS_Dreem_AJB\CaseData\DREEMData_raw\DBSSleep03\PostDBS\Post-DBS OFF med\Dreem data';
+readdataLOC = 'Z:\Hirt_Neurosurgery_Projects\DBS_Dreem_AJB\CaseData\DREEMData_raw\DBSSleep03\PreDBS\Pre-DBS ON med\Dreem data';
 cd(readdataLOC)
 
-sleepStageList = [{'SLEEP-S1' 'SLEEP-S2' 'SLEEP-S3'}];
+sleepStageList = [{'SLEEP-S1' 'SLEEP-S2' 'SLEEP-S3' 'SLEEP-REM'}];
 
 hypnoList = dir('*.txt');
 hypnoList2 = string({hypnoList.name});
@@ -75,7 +75,7 @@ for i = 1:length(hypnoList2)
 
                 case 'SLEEP-S3'
                     s3Name = 'S3';
-                    tempSleepLoc = matches(tempList.SleepStage, sleepStageList{2});
+                    tempSleepLoc = matches(tempList.SleepStage, sleepStageList{3});
                     tempSleepLoc2 = find(tempSleepLoc);
 
                     [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF);
@@ -84,6 +84,21 @@ for i = 1:length(hypnoList2)
                     allData.(PartID).(PrePost).(tempNightNum2).(s3Name).F8_F7 = F8_F7;
                     allData.(PartID).(PrePost).(tempNightNum2).(s3Name).F8_01 = F8_01;
                     allData.(PartID).(PrePost).(tempNightNum2).(s3Name).F7_02 = F7_02;
+
+                case 'SLEEP-REM'
+                    sREMName = 'REM';
+                    tempSleepLoc = matches(tempList.SleepStage, sleepStageList{4});
+                    tempSleepLoc2 = find(tempSleepLoc);
+
+                    [F7_01, F8_02, F8_F7, F8_01, F7_02] = getEphysPerEpoch(tempSleepLoc2,epochLocInx, tempEDF);
+                    allData.(PartID).(PrePost).(tempNightNum2).(sREMName).F7_01 = F7_01;
+                    allData.(PartID).(PrePost).(tempNightNum2).(sREMName).F8_02 = F8_02;
+                    allData.(PartID).(PrePost).(tempNightNum2).(sREMName).F8_F7 = F8_F7;
+                    allData.(PartID).(PrePost).(tempNightNum2).(sREMName).F8_01 = F8_01;
+                    allData.(PartID).(PrePost).(tempNightNum2).(sREMName).F7_02 = F7_02;
+
+                otherwise 
+                    continue 
 
             end % switch
         end % for j / tempSleepStage
